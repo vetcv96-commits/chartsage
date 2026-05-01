@@ -667,12 +667,271 @@
   .ticker-change.pos { color: var(--buy); }
   .ticker-change.neg { color: var(--sell); }
 
+  /* ── PREMIUM RESULT TEMPLATE ── */
+  .result-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  /* Signal Hero */
+  .result-hero {
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+
+  .result-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.03), transparent 60%);
+    pointer-events: none;
+  }
+
+  .result-hero.buy { background: rgba(0,230,118,0.06); border-color: rgba(0,230,118,0.25); }
+  .result-hero.buy::before { background: linear-gradient(90deg, var(--buy), transparent); }
+  .result-hero.sell { background: rgba(255,59,92,0.06); border-color: rgba(255,59,92,0.25); }
+  .result-hero.sell::before { background: linear-gradient(90deg, var(--sell), transparent); }
+  .result-hero.hold { background: rgba(255,201,71,0.06); border-color: rgba(255,201,71,0.25); }
+  .result-hero.hold::before { background: linear-gradient(90deg, var(--neutral), transparent); }
+
+  .result-hero-left { display: flex; align-items: center; gap: 20px; }
+
+  .result-signal-emoji { font-size: 52px; line-height: 1; }
+
+  .result-signal-word {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .buy .result-signal-word { color: var(--buy); text-shadow: 0 0 30px rgba(0,230,118,0.5); }
+  .sell .result-signal-word { color: var(--sell); text-shadow: 0 0 30px rgba(255,59,92,0.5); }
+  .hold .result-signal-word { color: var(--neutral); text-shadow: 0 0 30px rgba(255,201,71,0.5); }
+
+  .result-signal-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .result-hero-right { text-align: right; }
+
+  .conf-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 4px; }
+
+  .conf-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .conf-bar-bg {
+    width: 140px;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-left: auto;
+  }
+
+  .conf-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  /* Metrics Row */
+  .result-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .result-metric {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .result-metric:hover { border-color: rgba(0,229,255,0.3); }
+
+  .rm-icon { font-size: 20px; margin-bottom: 8px; }
+  .rm-label { font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .rm-value { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+
+  /* Sections */
+  .result-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    border-left: 3px solid rgba(0,229,255,0.3);
+  }
+
+  .result-section.accent-border { border-left-color: var(--buy); }
+  .result-section.sell-border { border-left-color: var(--sell); }
+
+  .rs-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rs-icon { font-size: 16px; }
+
+  .rs-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .rs-body { display: flex; flex-direction: column; gap: 6px; }
+
+  /* Formatted content elements */
+  .result-kv {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .kv-key {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    min-width: 130px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .kv-val {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .result-list-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 5px 0;
+    font-size: 13px;
+    color: #b8d0e8;
+    line-height: 1.6;
+  }
+
+  .list-num {
+    color: var(--accent);
+    font-size: 10px;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .result-para {
+    font-size: 13px;
+    color: #b8d0e8;
+    line-height: 1.7;
+    margin: 4px 0;
+  }
+
+  .hl {
+    color: var(--text);
+    font-weight: 700;
+    background: rgba(0,229,255,0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .arrow { color: var(--accent); font-weight: 700; margin: 0 2px; }
+
+  /* Pattern tags */
+  .pattern-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,229,255,0.2);
+    color: var(--accent);
+    background: rgba(0,229,255,0.06);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Summary */
+  .result-summary {
+    background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(0,102,204,0.05));
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+
+  .summary-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* Disclaimer */
+  .result-disclaimer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    line-height: 1.6;
+  }
+
   @media (max-width: 600px) {
     header { padding: 14px 16px; }
     main { padding: 24px 14px 80px; }
     .metrics-grid { grid-template-columns: 1fr 1fr; }
     .hero h1 { font-size: 28px; }
     .pass-box { width: 90%; padding: 32px 24px; }
+    .result-hero { flex-direction: column; gap: 20px; align-items: flex-start; }
+    .result-hero-right { text-align: left; }
+    .conf-bar-bg { margin-left: 0; }
+    .result-metrics { grid-template-columns: repeat(2, 1fr); }
+    .result-signal-word { font-size: 32px; }
+    .kv-key { min-width: 100px; }
   }
 </style>
 </head>
@@ -918,15 +1177,24 @@
     return 'hold';
   }
 
-  function extractSection(text, keywords) {
+  // Extract a named section from the AI response
+  function extractNamedSection(text, headings) {
     const lines = text.split('\n');
+    let capturing = false;
+    let result = [];
     for (let i = 0; i < lines.length; i++) {
-      const l = lines[i].toLowerCase();
-      if (keywords.some(k => l.includes(k))) {
-        return lines.slice(i, i+4).join(' ').replace(/[#*_`]/g, '').trim();
+      const clean = lines[i].replace(/^#+\s*/, '').trim();
+      const lower = clean.toLowerCase();
+      // Check if this line is a heading we want
+      if (headings.some(h => lower.includes(h))) {
+        capturing = true;
+        continue;
       }
+      // Stop at next heading
+      if (capturing && /^#{1,3}\s/.test(lines[i])) break;
+      if (capturing && clean) result.push(clean);
     }
-    return null;
+    return result.join('\n').trim();
   }
 
   function extractPatterns(text) {
@@ -941,61 +1209,176 @@
     const found = [];
     const lower = text.toLowerCase();
     patterns.forEach(p => { if (lower.includes(p)) found.push(p.replace(/\b\w/g, c => c.toUpperCase())); });
-    return [...new Set(found)].slice(0, 8);
+    return [...new Set(found)].slice(0, 10);
+  }
+
+  // Format a section's text into clean styled HTML
+  function formatSection(text) {
+    if (!text) return '';
+    return text
+      .split('\n')
+      .map(line => {
+        line = line.trim();
+        if (!line || line === '---') return '';
+        // Numbered list items
+        if (/^\d+\./.test(line)) {
+          line = line.replace(/^\d+\.\s*/, '');
+          line = line.replace(/\*\*(.*?)\*\*/g, '<span class="hl">$1</span>');
+          line = line.replace(/→/g, '<span class="arrow">→</span>');
+          return `<div class="result-list-item"><span class="list-num">▸</span><span>${line}</span></div>`;
+        }
+        // Bullet items
+        if (/^[-•]/.test(line)) {
+          line = line.replace(/^[-•]\s*/, '');
+          line = line.replace(/\*\*(.*?)\*\*/g, '<span class="hl">$1</span>');
+          return `<div class="result-list-item"><span class="list-num">▸</span><span>${line}</span></div>`;
+        }
+        // Key: Value lines
+        if (/^[A-Z][^:]{1,30}:/.test(line)) {
+          const colonIdx = line.indexOf(':');
+          const key = line.slice(0, colonIdx).replace(/\*\*/g,'');
+          const val = line.slice(colonIdx+1).trim().replace(/\*\*(.*?)\*\*/g, '<span class="hl">$1</span>');
+          return `<div class="result-kv"><span class="kv-key">${key}</span><span class="kv-val">${val}</span></div>`;
+        }
+        // Regular paragraph
+        line = line.replace(/\*\*(.*?)\*\*/g, '<span class="hl">$1</span>');
+        return `<p class="result-para">${line}</p>`;
+      })
+      .filter(Boolean)
+      .join('');
   }
 
   function buildResultHTML(signal, confidence, rawText) {
     const signalEmoji = signal === 'buy' ? '🟢' : signal === 'sell' ? '🔴' : '🟡';
     const signalWord = signal.toUpperCase();
+    const signalColor = signal === 'buy' ? 'var(--buy)' : signal === 'sell' ? 'var(--sell)' : 'var(--neutral)';
     const patterns = extractPatterns(rawText);
-    const entrySection = extractSection(rawText, ['entry','enter','price level','buy at','sell at']);
-    const riskSection = extractSection(rawText, ['stop loss','stop-loss','risk','target','take profit','tp ']);
+
+    // Extract all sections
+    const trendText    = extractNamedSection(rawText, ['trend','momentum']);
+    const patternText  = extractNamedSection(rawText, ['key pattern','patterns detected','pattern']);
+    const srText       = extractNamedSection(rawText, ['support','resistance','s/r','s&r']);
+    const entryText    = extractNamedSection(rawText, ['entry','price level']);
+    const riskText     = extractNamedSection(rawText, ['risk','stop loss','take profit']);
+    const summaryText  = extractNamedSection(rawText, ['summary','conclusion']);
+
+    // Confidence bar width
+    const barW = Math.min(confidence, 99);
+    const barColor = confidence >= 75 ? 'var(--buy)' : confidence >= 55 ? 'var(--neutral)' : 'var(--sell)';
 
     return `
-      <div class="signal-card ${signal}">
-        <div class="signal-header">
-          <div class="signal-label ${signal}">${signalEmoji} ${signalWord}</div>
-          <div class="confidence-badge">${confidence}% CONFIDENCE</div>
-        </div>
-        <div class="metrics-grid">
-          <div class="metric">
-            <div class="metric-label">Signal</div>
-            <div class="metric-value" style="color:var(--${signal==='hold'?'neutral':signal})">${signalWord}</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Strength</div>
-            <div class="metric-value">${confidence>=75?'Strong':confidence>=55?'Moderate':'Weak'}</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Timeframe</div>
-            <div class="metric-value" style="font-size:13px">Short-Mid</div>
-          </div>
-        </div>
-        ${patterns.length>0?`
-        <div class="analysis-section">
-          <div class="section-title">Detected Patterns</div>
-          <div class="pattern-tags">${patterns.map(p=>`<span class="tag">${p}</span>`).join('')}</div>
-        </div>`:''}
-        <div class="analysis-section">
-          <div class="section-title">AI Analysis</div>
-          <div class="analysis-text">${formatAnalysis(rawText)}</div>
-        </div>
-        ${entrySection?`<div class="analysis-section"><div class="section-title">Entry & Levels</div><div class="analysis-text">${entrySection}</div></div>`:''}
-        ${riskSection?`<div class="analysis-section"><div class="section-title">Risk Management</div><div class="analysis-text">${riskSection}</div></div>`:''}
-        <div class="disclaimer">⚠️ Educational analysis only — not financial advice. Always do your own research and manage risk carefully.</div>
-      </div>
-    `;
-  }
+    <div class="result-wrapper">
 
-  function formatAnalysis(text) {
-    return text
-      .replace(/#{1,3}\s/g,'')
-      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g,'<em>$1</em>')
-      .replace(/\n\n+/g,'</p><p>')
-      .replace(/^/,'<p>').replace(/$/,'</p>')
-      .replace(/\n/g,'<br>')
-      .slice(0,1200)+(text.length>1200?'...':'');
+      <!-- ── SIGNAL HERO ── -->
+      <div class="result-hero ${signal}">
+        <div class="result-hero-left">
+          <div class="result-signal-emoji">${signalEmoji}</div>
+          <div>
+            <div class="result-signal-word">${signalWord}</div>
+            <div class="result-signal-sub">${signal==='buy'?'Bullish Signal Detected':signal==='sell'?'Bearish Signal Detected':'Neutral — Wait for Confirmation'}</div>
+          </div>
+        </div>
+        <div class="result-hero-right">
+          <div class="conf-label">CONFIDENCE</div>
+          <div class="conf-value" style="color:${barColor}">${confidence}%</div>
+          <div class="conf-bar-bg">
+            <div class="conf-bar-fill" style="width:${barW}%;background:${barColor}"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── METRICS ROW ── -->
+      <div class="result-metrics">
+        <div class="result-metric">
+          <div class="rm-icon">📊</div>
+          <div class="rm-label">SIGNAL</div>
+          <div class="rm-value" style="color:${signalColor}">${signalWord}</div>
+        </div>
+        <div class="result-metric">
+          <div class="rm-icon">💪</div>
+          <div class="rm-label">STRENGTH</div>
+          <div class="rm-value">${confidence>=75?'Strong':confidence>=55?'Moderate':'Weak'}</div>
+        </div>
+        <div class="result-metric">
+          <div class="rm-icon">⏱️</div>
+          <div class="rm-label">TIMEFRAME</div>
+          <div class="rm-value">Short-Mid</div>
+        </div>
+        <div class="result-metric">
+          <div class="rm-icon">🎯</div>
+          <div class="rm-label">RISK/REWARD</div>
+          <div class="rm-value">${confidence>=75?'1:3':'1:2'}</div>
+        </div>
+      </div>
+
+      <!-- ── DETECTED PATTERNS ── -->
+      ${patterns.length > 0 ? `
+      <div class="result-section">
+        <div class="rs-header">
+          <span class="rs-icon">🔍</span>
+          <span class="rs-title">DETECTED PATTERNS</span>
+        </div>
+        <div class="pattern-tags">
+          ${patterns.map(p => `<span class="tag">${p}</span>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <!-- ── TREND & MOMENTUM ── -->
+      ${trendText ? `
+      <div class="result-section">
+        <div class="rs-header">
+          <span class="rs-icon">📈</span>
+          <span class="rs-title">TREND & MOMENTUM</span>
+        </div>
+        <div class="rs-body">${formatSection(trendText)}</div>
+      </div>` : ''}
+
+      <!-- ── SUPPORT & RESISTANCE ── -->
+      ${srText ? `
+      <div class="result-section">
+        <div class="rs-header">
+          <span class="rs-icon">📐</span>
+          <span class="rs-title">SUPPORT & RESISTANCE</span>
+        </div>
+        <div class="rs-body">${formatSection(srText)}</div>
+      </div>` : ''}
+
+      <!-- ── ENTRY & LEVELS ── -->
+      ${entryText ? `
+      <div class="result-section accent-border">
+        <div class="rs-header">
+          <span class="rs-icon">🎯</span>
+          <span class="rs-title">ENTRY & PRICE LEVELS</span>
+        </div>
+        <div class="rs-body">${formatSection(entryText)}</div>
+      </div>` : ''}
+
+      <!-- ── RISK MANAGEMENT ── -->
+      ${riskText ? `
+      <div class="result-section sell-border">
+        <div class="rs-header">
+          <span class="rs-icon">🛡️</span>
+          <span class="rs-title">RISK MANAGEMENT</span>
+        </div>
+        <div class="rs-body">${formatSection(riskText)}</div>
+      </div>` : ''}
+
+      <!-- ── SUMMARY ── -->
+      ${summaryText ? `
+      <div class="result-summary">
+        <div class="rs-header">
+          <span class="rs-icon">💡</span>
+          <span class="rs-title">AI SUMMARY</span>
+        </div>
+        <div class="summary-text">${summaryText.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</div>
+      </div>` : ''}
+
+      <!-- ── DISCLAIMER ── -->
+      <div class="result-disclaimer">
+        ⚠️ <strong>Educational purposes only</strong> — This is not financial advice. Always conduct your own research and manage risk carefully. Past patterns do not guarantee future results.
+      </div>
+
+    </div>`;
   }
 
   // ── ANALYZE ──────────────────────────────────────────────
