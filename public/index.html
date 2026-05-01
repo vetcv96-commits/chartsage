@@ -667,7 +667,182 @@
   .ticker-change.pos { color: var(--buy); }
   .ticker-change.neg { color: var(--sell); }
 
-  /* ── PREMIUM RESULT TEMPLATE ── */
+  /* ══════════════════════════════════════
+     PREMIUM RESULT TEMPLATE
+  ══════════════════════════════════════ */
+
+  .pr-wrap { display:flex; flex-direction:column; gap:16px; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* HERO */
+  .pr-hero {
+    border-radius:20px; padding:32px 36px;
+    display:flex; align-items:center; justify-content:space-between;
+    border:1px solid; position:relative; overflow:hidden;
+  }
+  .pr-hero.buy  { background:rgba(0,230,118,0.05);  border-color:rgba(0,230,118,0.2); }
+  .pr-hero.sell { background:rgba(255,59,92,0.05);  border-color:rgba(255,59,92,0.2); }
+  .pr-hero.hold { background:rgba(255,201,71,0.05); border-color:rgba(255,201,71,0.2); }
+
+  .pr-hero-glow {
+    position:absolute; top:-60px; left:-60px;
+    width:200px; height:200px; border-radius:50%;
+    filter:blur(60px); opacity:0.15; pointer-events:none;
+  }
+
+  .pr-asset-badge {
+    display:inline-block;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+    border-radius:6px; padding:4px 12px; font-size:11px;
+    color:var(--muted); letter-spacing:1px; margin-bottom:12px;
+  }
+
+  .pr-sig-row { display:flex; align-items:center; gap:14px; margin-bottom:8px; }
+  .pr-sig-emoji { font-size:48px; line-height:1; }
+  .pr-sig-word {
+    font-family:'Syne',sans-serif; font-size:52px;
+    font-weight:800; letter-spacing:-3px; line-height:1;
+  }
+  .pr-sig-desc { font-size:13px; color:var(--muted); }
+
+  /* Confidence ring */
+  .pr-conf-ring { position:relative; width:90px; height:90px; }
+  .pr-ring-svg { width:100%; height:100%; }
+  .pr-conf-inner {
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  .pr-conf-num { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; line-height:1; }
+  .pr-conf-lbl { font-size:9px; color:var(--muted); letter-spacing:1px; margin-top:2px; }
+
+  /* METRICS STRIP */
+  .pr-metrics {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+  }
+  .pr-metric {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:18px 12px; text-align:center;
+    transition:all 0.2s;
+  }
+  .pr-metric:hover { border-color:rgba(0,229,255,0.3); transform:translateY(-2px); }
+  .pr-metric-icon { font-size:22px; margin-bottom:8px; }
+  .pr-metric-val { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .pr-metric-lbl { font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+
+  /* TWO COLUMN GRID */
+  .pr-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .pr-col { display:flex; flex-direction:column; gap:16px; }
+
+  /* CARDS */
+  .pr-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:20px 22px;
+    border-top:2px solid var(--accent-c, var(--border));
+  }
+
+  .pr-card-header {
+    display:flex; align-items:center; gap:8px;
+    font-size:10px; font-weight:700; letter-spacing:2px;
+    color:var(--accent-c, var(--accent)); text-transform:uppercase;
+    margin-bottom:16px; padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+
+  .pr-card-text { font-size:13px; color:#b8d0e8; line-height:1.8; }
+
+  /* TREND */
+  .pr-trend-dir {
+    font-family:'Syne',sans-serif; font-size:22px; font-weight:700;
+    margin-bottom:12px; display:flex; align-items:center; gap:10px;
+  }
+  .pr-trend-str {
+    font-size:12px; font-family:'JetBrains Mono',monospace;
+    color:var(--muted); background:rgba(255,255,255,0.04);
+    border:1px solid var(--border); border-radius:4px;
+    padding:2px 8px; font-weight:400;
+  }
+
+  /* PATTERNS */
+  .pr-patterns { display:flex; flex-wrap:wrap; gap:8px; }
+  .pr-pattern-tag {
+    font-size:11px; padding:5px 12px; border-radius:6px;
+    background:rgba(181,123,255,0.08); border:1px solid rgba(181,123,255,0.25);
+    color:#b57bff; font-weight:600; letter-spacing:0.5px;
+  }
+
+  /* INDICATORS */
+  .pr-indicator {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+    font-size:12px;
+  }
+  .pr-indicator:last-child { border-bottom:none; }
+  .pr-ind-name { color:var(--muted); flex:1; }
+  .pr-ind-val { color:var(--text); font-weight:600; min-width:80px; text-align:right; }
+  .pr-ind-sig { font-size:10px; font-weight:700; letter-spacing:1px; min-width:60px; text-align:right; }
+
+  /* LEVELS */
+  .pr-levels { display:flex; flex-direction:column; gap:4px; }
+  .pr-level-row {
+    display:flex; align-items:center; gap:12px;
+    padding:8px 10px; border-radius:8px;
+    font-size:12px; transition:background 0.2s;
+  }
+  .pr-level-row:hover { background:rgba(255,255,255,0.03); }
+  .pr-level-row.resistance { border-left:2px solid rgba(255,59,92,0.4); }
+  .pr-level-row.support { border-left:2px solid rgba(0,230,118,0.4); }
+  .pr-level-row.current { border-left:2px solid rgba(0,229,255,0.4); background:rgba(0,229,255,0.03); }
+
+  .pr-level-badge {
+    font-size:9px; font-weight:700; letter-spacing:1px;
+    padding:2px 7px; border-radius:4px; min-width:36px;
+    text-align:center;
+  }
+  .pr-level-badge.resist { background:rgba(255,59,92,0.15); color:#ff3b5c; }
+  .pr-level-badge.supp   { background:rgba(0,230,118,0.15); color:#00e676; }
+  .pr-level-badge.curr   { background:rgba(0,229,255,0.15); color:#00e5ff; }
+
+  .pr-level-price { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; flex:1; }
+  .pr-level-note { font-size:10px; color:var(--muted); text-align:right; }
+
+  /* TRADE SETUP */
+  .trade-card { border-top-color:#00e676 !important; }
+  .pr-trade-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .pr-trade-item {
+    background:rgba(255,255,255,0.02); border:1px solid var(--border);
+    border-radius:10px; padding:14px; text-align:center;
+  }
+  .pr-trade-item.entry { border-color:rgba(0,229,255,0.2); }
+  .pr-trade-item.stop  { border-color:rgba(255,59,92,0.2); }
+  .pr-trade-item.tp1, .pr-trade-item.tp2 { border-color:rgba(0,230,118,0.2); }
+  .pr-trade-lbl { font-size:9px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .pr-trade-val { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--text); }
+
+  /* SUMMARY */
+  .pr-summary {
+    background:linear-gradient(135deg,rgba(0,229,255,0.04),rgba(0,102,204,0.04));
+    border:1px solid rgba(0,229,255,0.15); border-radius:16px;
+    padding:24px 28px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .pr-summary-icon { font-size:28px; flex-shrink:0; margin-top:2px; }
+  .pr-summary-text { font-size:14px; color:var(--text); line-height:1.8; }
+
+  /* DISCLAIMER */
+  .pr-disclaimer {
+    text-align:center; font-size:11px; color:var(--muted);
+    background:rgba(255,255,255,0.02); border:1px solid var(--border);
+    border-radius:10px; padding:14px 20px; line-height:1.6;
+  }
+
+  @media(max-width:700px){
+    .pr-grid { grid-template-columns:1fr; }
+    .pr-metrics { grid-template-columns:repeat(2,1fr); }
+    .pr-hero { flex-direction:column; gap:20px; align-items:flex-start; }
+    .pr-sig-word { font-size:38px; }
+    .pr-trade-grid { grid-template-columns:1fr 1fr; }
+  }
+</style> */
   .result-wrapper {
     display: flex;
     flex-direction: column;
@@ -1408,22 +1583,37 @@
 
       content.push({
         type: 'text',
-        text: `You are Chart AI Pulse, a professional technical analysis AI with expertise in candlestick patterns, trend analysis, and trading signals.
+        text: `You are Chart AI Pulse, an elite professional technical analysis AI. Analyze this chart image and return ONLY a valid JSON object — no markdown, no explanation, no text outside the JSON.
 
-Analyze the provided chart image(s) and answer: "${question}"
+Return exactly this structure:
+{
+  "signal": "BUY" or "SELL" or "HOLD",
+  "confidence": number between 40-95,
+  "asset": "detected asset name e.g. BTC/USDT or ETH/USD",
+  "timeframe": "detected timeframe e.g. 4H or 1D or 15M",
+  "trend": {
+    "direction": "Bullish" or "Bearish" or "Sideways",
+    "strength": "Strong" or "Moderate" or "Weak",
+    "summary": "2-3 sentence trend description"
+  },
+  "patterns": ["pattern1", "pattern2", "pattern3"],
+  "levels": {
+    "resistance": [{"label":"R1","price":"$X,XXX","note":"brief note"},{"label":"R2","price":"$X,XXX","note":"brief note"}],
+    "support": [{"label":"S1","price":"$X,XXX","note":"brief note"},{"label":"S2","price":"$X,XXX","note":"brief note"}],
+    "current": "$X,XXX"
+  },
+  "trade": {
+    "entry": "$X,XXX",
+    "stopLoss": "$X,XXX",
+    "target1": "$X,XXX",
+    "target2": "$X,XXX",
+    "riskReward": "1:X"
+  },
+  "indicators": [{"name":"indicator name","value":"value","signal":"Bullish or Bearish or Neutral"}],
+  "summary": "3-4 sentence professional trading summary with clear reasoning"
+}
 
-Structure your response as follows:
-
-## SIGNAL: [BUY / SELL / HOLD]
-## Confidence Level (percentage)
-## Trend & Momentum
-## Key Patterns Detected
-## Support & Resistance
-## Entry & Price Levels
-## Risk Management
-## Summary
-
-Be specific, professional, and educational. Always include a disclaimer that this is for educational purposes only.`
+IMPORTANT: Return ONLY the JSON object. No text before or after. No markdown code blocks.`
       });
 
       const response = await fetch('/api/analyze', {
@@ -1440,13 +1630,21 @@ Be specific, professional, and educational. Always include a disclaimer that thi
       const data = await response.json();
       clearInterval(stepInterval);
 
-      const rawText = data.content.filter(b=>b.type==='text').map(b=>b.text).join('\n');
-      const signal = parseSignal(rawText);
-      const confMatch = rawText.match(/(\d{1,3})\s*%/);
-      const confidence = confMatch ? Math.min(99,Math.max(40,parseInt(confMatch[1]))) : (signal==='hold'?52:68);
+      const rawText = data.content.filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+
+      // Parse JSON from AI response
+      let analysis;
+      try {
+        const cleaned = rawText.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
+        analysis = JSON.parse(cleaned);
+      } catch(e) {
+        // Fallback if JSON parse fails
+        const sig = rawText.toUpperCase().includes('BUY') ? 'BUY' : rawText.toUpperCase().includes('SELL') ? 'SELL' : 'HOLD';
+        analysis = { signal: sig, confidence: 65, asset: 'Chart', timeframe: '—', trend: { direction: 'Sideways', strength: 'Moderate', summary: rawText.slice(0,300) }, patterns: [], levels: { resistance:[], support:[], current:'—' }, trade: { entry:'—', stopLoss:'—', target1:'—', target2:'—', riskReward:'—' }, indicators:[], summary: rawText.slice(0,400) };
+      }
 
       const resultsEl = document.getElementById('resultsContainer');
-      resultsEl.innerHTML = buildResultHTML(signal, confidence, rawText);
+      resultsEl.innerHTML = buildPremiumResult(analysis);
       resultsEl.style.display = 'block';
 
     } catch (err) {
@@ -1459,7 +1657,189 @@ Be specific, professional, and educational. Always include a disclaimer that thi
     }
   }
 
-  // ── TICKER ───────────────────────────────────────────────
+  // ── PREMIUM RESULT BUILDER ────────────────────────────────
+  function buildPremiumResult(d) {
+    const sig = (d.signal||'HOLD').toUpperCase();
+    const sigClass = sig === 'BUY' ? 'buy' : sig === 'SELL' ? 'sell' : 'hold';
+    const sigColor = sig === 'BUY' ? '#00e676' : sig === 'SELL' ? '#ff3b5c' : '#ffc947';
+    const sigEmoji = sig === 'BUY' ? '🟢' : sig === 'SELL' ? '🔴' : '🟡';
+    const conf = d.confidence || 65;
+    const barColor = conf >= 75 ? '#00e676' : conf >= 55 ? '#ffc947' : '#ff3b5c';
+    const trendDir = d.trend?.direction || '—';
+    const trendColor = trendDir === 'Bullish' ? '#00e676' : trendDir === 'Bearish' ? '#ff3b5c' : '#ffc947';
+
+    return `
+    <div class="pr-wrap">
+
+      <!-- HERO SIGNAL BAR -->
+      <div class="pr-hero ${sigClass}">
+        <div class="pr-hero-glow" style="background:${sigColor}"></div>
+        <div class="pr-hero-left">
+          <div class="pr-asset-badge">${d.asset||'CHART'} · ${d.timeframe||'—'}</div>
+          <div class="pr-sig-row">
+            <span class="pr-sig-emoji">${sigEmoji}</span>
+            <span class="pr-sig-word" style="color:${sigColor}">${sig}</span>
+          </div>
+          <div class="pr-sig-desc">${sig==='BUY'?'Bullish — Consider Long Position':sig==='SELL'?'Bearish — Consider Short Position':'Neutral — Wait for Confirmation'}</div>
+        </div>
+        <div class="pr-hero-right">
+          <div class="pr-conf-ring">
+            <svg viewBox="0 0 80 80" class="pr-ring-svg">
+              <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+              <circle cx="40" cy="40" r="34" fill="none" stroke="${barColor}" stroke-width="6"
+                stroke-dasharray="${2*Math.PI*34}" stroke-dashoffset="${2*Math.PI*34*(1-conf/100)}"
+                stroke-linecap="round" transform="rotate(-90 40 40)"
+                style="filter:drop-shadow(0 0 6px ${barColor})"/>
+            </svg>
+            <div class="pr-conf-inner">
+              <div class="pr-conf-num" style="color:${barColor}">${conf}%</div>
+              <div class="pr-conf-lbl">CONF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- METRICS STRIP -->
+      <div class="pr-metrics">
+        <div class="pr-metric">
+          <div class="pr-metric-icon">📊</div>
+          <div class="pr-metric-val" style="color:${sigColor}">${sig}</div>
+          <div class="pr-metric-lbl">Signal</div>
+        </div>
+        <div class="pr-metric">
+          <div class="pr-metric-icon">📈</div>
+          <div class="pr-metric-val" style="color:${trendColor}">${trendDir}</div>
+          <div class="pr-metric-lbl">Trend</div>
+        </div>
+        <div class="pr-metric">
+          <div class="pr-metric-icon">💪</div>
+          <div class="pr-metric-val">${d.trend?.strength||'—'}</div>
+          <div class="pr-metric-lbl">Strength</div>
+        </div>
+        <div class="pr-metric">
+          <div class="pr-metric-icon">⚖️</div>
+          <div class="pr-metric-val" style="color:#00e676">${d.trade?.riskReward||'—'}</div>
+          <div class="pr-metric-lbl">Risk/Reward</div>
+        </div>
+      </div>
+
+      <!-- TWO COLUMN LAYOUT -->
+      <div class="pr-grid">
+
+        <!-- LEFT COL -->
+        <div class="pr-col">
+
+          <!-- TREND -->
+          <div class="pr-card">
+            <div class="pr-card-header" style="--accent-c:#00e5ff">
+              <span>📈</span><span>TREND & MOMENTUM</span>
+            </div>
+            <div class="pr-trend-dir" style="color:${trendColor}">
+              ${trendDir === 'Bullish' ? '▲' : trendDir === 'Bearish' ? '▼' : '◆'} ${trendDir}
+              <span class="pr-trend-str">${d.trend?.strength||''}</span>
+            </div>
+            <p class="pr-card-text">${d.trend?.summary||'—'}</p>
+          </div>
+
+          <!-- PATTERNS -->
+          ${d.patterns&&d.patterns.length>0?`
+          <div class="pr-card">
+            <div class="pr-card-header" style="--accent-c:#b57bff">
+              <span>🔍</span><span>DETECTED PATTERNS</span>
+            </div>
+            <div class="pr-patterns">
+              ${d.patterns.map(p=>`<span class="pr-pattern-tag">${p}</span>`).join('')}
+            </div>
+          </div>`:''}
+
+          <!-- INDICATORS -->
+          ${d.indicators&&d.indicators.length>0?`
+          <div class="pr-card">
+            <div class="pr-card-header" style="--accent-c:#ffc947">
+              <span>⚡</span><span>INDICATORS</span>
+            </div>
+            ${d.indicators.map(ind=>{
+              const ic = ind.signal==='Bullish'?'#00e676':ind.signal==='Bearish'?'#ff3b5c':'#ffc947';
+              return `<div class="pr-indicator">
+                <span class="pr-ind-name">${ind.name}</span>
+                <span class="pr-ind-val">${ind.value}</span>
+                <span class="pr-ind-sig" style="color:${ic}">${ind.signal}</span>
+              </div>`;
+            }).join('')}
+          </div>`:''}
+
+        </div>
+
+        <!-- RIGHT COL -->
+        <div class="pr-col">
+
+          <!-- SUPPORT & RESISTANCE -->
+          <div class="pr-card">
+            <div class="pr-card-header" style="--accent-c:#ff3b5c">
+              <span>📐</span><span>SUPPORT & RESISTANCE</span>
+            </div>
+            <div class="pr-levels">
+              ${(d.levels?.resistance||[]).map(r=>`
+              <div class="pr-level-row resistance">
+                <span class="pr-level-badge resist">${r.label}</span>
+                <span class="pr-level-price">${r.price}</span>
+                <span class="pr-level-note">${r.note||''}</span>
+              </div>`).join('')}
+              <div class="pr-level-row current">
+                <span class="pr-level-badge curr">NOW</span>
+                <span class="pr-level-price" style="color:#fff">${d.levels?.current||'—'}</span>
+                <span class="pr-level-note">Current Price</span>
+              </div>
+              ${(d.levels?.support||[]).map(s=>`
+              <div class="pr-level-row support">
+                <span class="pr-level-badge supp">${s.label}</span>
+                <span class="pr-level-price">${s.price}</span>
+                <span class="pr-level-note">${s.note||''}</span>
+              </div>`).join('')}
+            </div>
+          </div>
+
+          <!-- TRADE SETUP -->
+          <div class="pr-card trade-card">
+            <div class="pr-card-header" style="--accent-c:#00e676">
+              <span>🎯</span><span>TRADE SETUP</span>
+            </div>
+            <div class="pr-trade-grid">
+              <div class="pr-trade-item entry">
+                <div class="pr-trade-lbl">ENTRY</div>
+                <div class="pr-trade-val">${d.trade?.entry||'—'}</div>
+              </div>
+              <div class="pr-trade-item stop">
+                <div class="pr-trade-lbl">STOP LOSS</div>
+                <div class="pr-trade-val" style="color:#ff3b5c">${d.trade?.stopLoss||'—'}</div>
+              </div>
+              <div class="pr-trade-item tp1">
+                <div class="pr-trade-lbl">TARGET 1</div>
+                <div class="pr-trade-val" style="color:#00e676">${d.trade?.target1||'—'}</div>
+              </div>
+              <div class="pr-trade-item tp2">
+                <div class="pr-trade-lbl">TARGET 2</div>
+                <div class="pr-trade-val" style="color:#00e676">${d.trade?.target2||'—'}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="pr-summary">
+        <div class="pr-summary-icon">💡</div>
+        <div class="pr-summary-text">${d.summary||'—'}</div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div class="pr-disclaimer">
+        ⚠️ <strong>Educational purposes only</strong> — Not financial advice. Always conduct your own research and manage your risk. Past patterns do not guarantee future results.
+      </div>
+
+    </div>`;
+  }
   const tickers = [
     { sym:'BTC/USD', price:'94,280', chg:'+2.4%', pos:true },
     { sym:'ETH/USD', price:'3,412', chg:'+1.8%', pos:true },
