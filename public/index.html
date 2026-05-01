@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChartSage AI — Chart Intelligence</title>
+<title>Chart AI Pulse — Instant Trading Signals</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -682,7 +682,7 @@
 <div id="passwordScreen">
   <div class="pass-box" id="passBox">
     <div class="pass-icon">🔐</div>
-    <div class="pass-title">ChartSage AI</div>
+    <div class="pass-title">Chart AI Pulse</div>
     <div class="pass-sub">Enter your access password to continue</div>
     <input
       class="pass-input"
@@ -707,7 +707,7 @@
   <header>
     <div class="logo">
       <div class="logo-icon">🕯️</div>
-      Chart<span>Sage</span> AI
+      Chart AI <span>Pulse</span>
     </div>
     <div class="header-right">
       <div class="status-dot"></div>
@@ -722,14 +722,14 @@
       <p>Upload any chart screenshot — candlestick, line, crypto, stocks. Get professional-grade analysis in seconds.</p>
     </div>
 
-    <div class="upload-zone" id="uploadZone">
+    <div class="upload-zone" id="uploadZone" onclick="triggerUpload(event)">
       <div class="upload-icon">📈</div>
-      <div class="upload-title">Drop your chart here</div>
+      <div class="upload-title">Tap or Drop your chart here</div>
       <div class="upload-sub">PNG, JPG, WEBP · Multiple charts supported · Any timeframe</div>
-      <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+      <button class="upload-btn" onclick="triggerUpload(event)">
         📂 Select Chart Images
       </button>
-      <input type="file" id="fileInput" accept="image/*" multiple>
+      <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
     </div>
 
     <div id="previewContainer">
@@ -815,18 +815,33 @@
   // ── UPLOAD ───────────────────────────────────────────────
   let uploadedFiles = [];
 
+  // Fix: trigger file input properly
+  function triggerUpload(e) {
+    e.stopPropagation();
+    document.getElementById('fileInput').click();
+  }
+
   const uploadZone = document.getElementById('uploadZone');
   const fileInput = document.getElementById('fileInput');
 
-  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
-  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+  // Drag and drop
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); e.stopPropagation(); uploadZone.classList.add('drag-over'); });
+  uploadZone.addEventListener('dragleave', e => { e.stopPropagation(); uploadZone.classList.remove('drag-over'); });
   uploadZone.addEventListener('drop', e => {
     e.preventDefault();
+    e.stopPropagation();
     uploadZone.classList.remove('drag-over');
     handleFiles([...e.dataTransfer.files]);
   });
 
-  fileInput.addEventListener('change', e => handleFiles([...e.target.files]));
+  // File input change
+  fileInput.addEventListener('change', e => {
+    if (e.target.files.length > 0) {
+      handleFiles([...e.target.files]);
+      // Reset so same file can be re-selected
+      e.target.value = '';
+    }
+  });
 
   function handleFiles(files) {
     const imgs = files.filter(f => f.type.startsWith('image/'));
@@ -1010,7 +1025,7 @@
 
       content.push({
         type: 'text',
-        text: `You are ChartSage, a professional technical analysis AI with expertise in candlestick patterns, trend analysis, and trading signals.
+        text: `You are Chart AI Pulse, a professional technical analysis AI with expertise in candlestick patterns, trend analysis, and trading signals.
 
 Analyze the provided chart image(s) and answer: "${question}"
 
